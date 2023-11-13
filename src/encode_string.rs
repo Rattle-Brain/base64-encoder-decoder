@@ -18,8 +18,17 @@ pub fn encode(text: String) -> String
         reminder = 0;
         count = 2;
         current = 0;
-        for byte in byte_group
+        for i in 0.. byte_group.len() + 1
         {
+            if i >= byte_group.len()
+            {
+                mask = 0x3F;
+                current = byte_group[i-1] & mask;
+                result.push(current);
+                break;
+            }
+
+            let byte = byte_group[i];
             current |= byte >> count;
             current += reminder;
             mask = 2_u8.pow(count.into()) - 1;
@@ -31,6 +40,7 @@ pub fn encode(text: String) -> String
         }
     }
     print_vector(&result);
+    println!("{}", result.len());
     return stringify(&result)
 }
 
