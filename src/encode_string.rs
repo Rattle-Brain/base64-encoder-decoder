@@ -3,22 +3,25 @@ use std::string::String;
 pub fn encode(text: String) -> String
 {
     let text_as_bytes: &[u8] = text.as_bytes();
-    let string_return: String = String::new();
     let bytes: Vec<Vec<u8>> = group_bytes(&text_as_bytes);
     print_2d_vector(bytes.clone());
 
     let mut result: Vec<u8> = Vec::new();
     let limit = 8;
-    let mut current: u8 = 0;
-    let mut count: u8 = 2;
-    let mut reminder: u8 = 0;
+    let mut current: u8;
+    let mut count: u8;
+    let mut reminder: u8;
     let mut mask: u8;
 
     for byte_group in bytes
     {
+        reminder = 0;
+        count = 2;
+        current = 0;
         for byte in byte_group
         {
-            current |= (byte + reminder) >> count;
+            current |= byte >> count;
+            current += reminder;
             mask = 2_u8.pow(count.into()) - 1;
             reminder = byte & mask;
             reminder = reminder << (limit - count);
@@ -28,7 +31,7 @@ pub fn encode(text: String) -> String
         }
     }
     print_vector(&result);
-    return string_return;
+    return stringify(&result)
 }
 
 fn print_vector(bytes: &[u8])
@@ -37,6 +40,7 @@ fn print_vector(bytes: &[u8])
     {
         print!("{:#04X?} ", bytes[i]);
     }
+    println!();
 }
 
 fn print_2d_vector(bytes: Vec<Vec<u8>>)
