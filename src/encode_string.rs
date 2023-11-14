@@ -4,7 +4,6 @@ pub fn encode(text: String) -> String
 {
     let text_as_bytes: &[u8] = text.as_bytes();
     let bytes: Vec<Vec<u8>> = group_bytes(&text_as_bytes);
-    print_2d_vector(bytes.clone());
 
     let mut result: Vec<u8> = Vec::new();
     let limit = 8;
@@ -22,7 +21,7 @@ pub fn encode(text: String) -> String
         {
             if i >= byte_group.len()
             {
-                mask = 0x3F;
+                mask = 0x3F;        // Take the 6 less significant bits (0b00111111)
                 current = byte_group[i-1] & mask;
                 result.push(current);
                 break;
@@ -31,22 +30,25 @@ pub fn encode(text: String) -> String
             let byte = byte_group[i];
             current |= byte >> count;
             current += reminder;
+
             mask = 2_u8.pow(count.into()) - 1;
+
             reminder = byte & mask;                     // Extracts the not-taken bits
             reminder = reminder << (limit - count) - 2; // 0b00xxxxxx
+
             count = (count + 2) % limit;                // updates the count
+
             result.push(current);
             current = current ^ current;
         }
     }
-    print_vector(&result);
-    println!("{}", result.len());
+    print_vector(&text_as_bytes);
     return stringify(&result)
 }
 
 /**
-Makes groups of 3 bytes of the text to encode.
-Padding is ascii '=' or 0x3D
+    Makes groups of 3 bytes of the text to encode.
+    Padding is ascii '=' or 0x3D
  */
 fn group_bytes(text_bytes: &[u8]) -> Vec<Vec<u8>>
 {
@@ -95,7 +97,7 @@ pub fn stringify(bytes: &[u8]) -> String
     return stringified;
 }
 
-fn print_vector(bytes: &[u8])
+pub fn print_vector(bytes: &[u8])
 {
     for i in 0..bytes.len()
     {
@@ -104,7 +106,7 @@ fn print_vector(bytes: &[u8])
     println!();
 }
 
-fn print_2d_vector(bytes: Vec<Vec<u8>>)
+pub fn print_2d_vector(bytes: Vec<Vec<u8>>)
 {
     for i in 0..bytes.len()
     {

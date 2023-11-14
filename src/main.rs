@@ -9,9 +9,11 @@
 */
 use std::string::String;
 mod encode_string;
+mod decode_string;
 fn main() {
-    let string: String = "String to encode".to_string();
+    let string: String = "This encodes. Finally.".to_string();
     let encoded = encode_string::encode(string);
+    let decoded = decode_string::decode(encoded.clone());
 
     println!("{}", encoded);
 }
