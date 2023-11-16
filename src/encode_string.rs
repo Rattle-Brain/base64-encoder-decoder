@@ -58,11 +58,12 @@ fn group_bytes(text_bytes: &[u8]) -> Vec<Vec<u8>>
     // Matrix of bytes needed for the algorithm
     let mut bytes: Vec<Vec<u8>> = Vec::new();
     let maxi: usize;
-    if bytes.len() % 3 == 0
+    if text_bytes.len() % 3 == 0
     {
         maxi = text_bytes.len()/3;
     }
-    else {
+    else
+    {
         maxi = text_bytes.len() / 3 + 1;
     }
 
