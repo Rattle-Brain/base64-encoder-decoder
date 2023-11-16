@@ -1,10 +1,12 @@
 use std::string::String;
+use crate::helper_fns::Group;
 use super::helper_fns as hf;
 
 pub fn encode(text: String) -> String
 {
     let text_as_bytes: &[u8] = text.as_bytes();
     let bytes: Vec<Vec<u8>> = group_bytes(&text_as_bytes);
+    hf::print_2d_vector(bytes.clone());
 
     let mut result: Vec<u8> = Vec::new();
     let limit = 8;
@@ -55,7 +57,14 @@ fn group_bytes(text_bytes: &[u8]) -> Vec<Vec<u8>>
 {
     // Matrix of bytes needed for the algorithm
     let mut bytes: Vec<Vec<u8>> = Vec::new();
-    let maxi: usize = text_bytes.len()/3 + 1;
+    let maxi: usize;
+    if bytes.len() % 3 == 0
+    {
+        maxi = text_bytes.len()/3;
+    }
+    else {
+        maxi = text_bytes.len() / 3 + 1;
+    }
 
     // Initialize "bytes" vector as not null
     for _i in 0..maxi{
@@ -110,31 +119,30 @@ fn transform (value: u8) -> char
     }
     return match select_group(value)
     {
-        1 => translate_upper(value),
-        2 => translate_lower(value),
-        3 => translate_number(value),
-        4 => translate_plus(),
-        5 => translate_slash(),
-        _ => 0x0 as char
+        Group::Upper => translate_upper(value),
+        Group::Lower => translate_lower(value),
+        Group::Num => translate_number(value),
+        Group::Plus => translate_plus(),
+        Group::Slash => translate_slash(),
     };
 }
 
-fn select_group(value: u8) -> i32
+fn select_group(value: u8) -> Group
 {
     return if value <= 25
     {
-        1
+        Group::Upper
     } else if value >= 26 && value <= 51
     {
-        2
+        Group::Lower
     } else if value >= 51 && value <= 61
     {
-        3
+        Group::Num
     } else if value == 62
     {
-        4
+        Group::Plus
     } else {
-        5
+        Group::Slash
     }
 }
 
