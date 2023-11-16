@@ -13,7 +13,7 @@ mod decode_string;
 mod helper_fns;
 
 fn main() {
-    let string: String = "Que te den por ahi payaso".to_string();
+    let string: String = "Test to see if this encodes correctly. It does.".to_string();
     let encoded = encode_string::encode(string);
     println!("{}", encoded);
     let decoded = decode_string::decode(encoded.clone());
