@@ -10,10 +10,12 @@
 use std::string::String;
 mod encode_string;
 mod decode_string;
-fn main() {
-    let string: String = "This encodes. Finally.".to_string();
-    let encoded = encode_string::encode(string);
-    let decoded = decode_string::decode(encoded.clone());
+mod helper_fns;
 
+fn main() {
+    let string: String = "Alejop".to_string();
+    let encoded = encode_string::encode(string);
     println!("{}", encoded);
+    let decoded = decode_string::decode(encoded.clone());
+    println!("{}", decoded);
 }

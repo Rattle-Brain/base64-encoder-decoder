@@ -1,4 +1,5 @@
 use std::string::String;
+use super::helper_fns as hf;
 
 pub fn encode(text: String) -> String
 {
@@ -42,7 +43,7 @@ pub fn encode(text: String) -> String
             current = current ^ current;
         }
     }
-    print_vector(&text_as_bytes);
+    hf::print_vector(&text_as_bytes);
     return stringify(&result)
 }
 
@@ -95,27 +96,6 @@ pub fn stringify(bytes: &[u8]) -> String
         stringified += &*transform(bytes[i]).to_string();
     }
     return stringified;
-}
-
-pub fn print_vector(bytes: &[u8])
-{
-    for i in 0..bytes.len()
-    {
-        print!("{:#04X?} ", bytes[i]);
-    }
-    println!();
-}
-
-pub fn print_2d_vector(bytes: Vec<Vec<u8>>)
-{
-    for i in 0..bytes.len()
-    {
-        for j in 0..bytes[i].len()
-        {
-            print!("{:#04X?} ", bytes[i][j]);
-        }
-        println!();
-    }
 }
 
 /**
