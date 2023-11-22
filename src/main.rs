@@ -33,6 +33,7 @@ fn main() {
         )
         .get_matches();
 
+    // Selects the code flow from flag received.
     if let Some(e) = flags.get_one::<String>("encode")
     {
         let encoded = encode_string::encode(e.to_string());
