@@ -1,12 +1,12 @@
 use std::string::String;
-use crate::helper_fns::Group;
-use super::helper_fns as hf;
+//use super::helper_fns as hf;
+use super::helper_fns::Group;
 
 pub fn encode(text: String) -> String
 {
     let text_as_bytes: &[u8] = text.as_bytes();
     let bytes: Vec<Vec<u8>> = group_bytes(&text_as_bytes);
-    hf::print_2d_vector(bytes.clone());
+//    hf::print_2d_vector(bytes.clone());
 
     let mut result: Vec<u8> = Vec::new();
     let limit = 8;
@@ -45,7 +45,7 @@ pub fn encode(text: String) -> String
             current = current ^ current;
         }
     }
-    hf::print_vector(&text_as_bytes);
+//    hf::print_vector(&text_as_bytes);
     return stringify(&result)
 }
 
