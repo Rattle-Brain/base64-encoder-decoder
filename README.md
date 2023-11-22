@@ -14,26 +14,26 @@ Feel free to fork, improve and play with it.
 # USAGE
 ### Encode
 You can execute the program by running in your terminal
-'''
+```
 cargo build --release
 base64-encoder-decoder.exe -e "String to encode"
-'''
+```
 This will encode the string "String to encode" and print the result to the standard output.
 
 ### Decode
 For this, you can run the following commands
-'''
+```
 cargo build --release
 base64-encoder-decoder.exe -d "U3RyaW5nIHRvIGVuY29kZQ=="
-'''
+```
 This will decode the Base64 string to regular plain text.
 
 ### Other Commands
-'''
+```
 base64-encoder-decoder.exe --help
 base64-encoder-decoder.exe --version
-'''
+```
 Self explanatory. Shows the version of the program and the help in case you need it.
 
 ### Note
-The command '''cargo build --release''' has to be run just once.
+The command ```cargo build --release``` has to be run just once.
