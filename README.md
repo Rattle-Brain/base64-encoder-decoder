@@ -29,7 +29,7 @@ base64-encoder-decoder.exe -d "U3RyaW5nIHRvIGVuY29kZQ=="
 This will decode the Base64 string to regular plain text.
 
 ### Encode file.txt
-This will encode a ```file.txt``` where the name can be the full path. It has not been tested in other formats yet (.xml, .html, .bin, .docx, ...) but it should work regardless. The contents of the encodign will be dumped in a ```file-encoded.txt``` name. To use it, you can run the following command:
+This will encode a ```file.txt``` where the name can be the full path. It has not been tested in other formats yet (.xml, .html, .docx, ...) but it should work regardless. The contents of the encodign will be dumped in a ```file-encoded.txt``` name. To use it, you can run the following command:
 ```
 cargo build --release
 base64-encoder-decoder.exe -E file.txt
