@@ -55,6 +55,7 @@ name = "base64-encoder-decoder"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "file",
 ]
 
 [[package]]
@@ -102,6 +103,12 @@ name = "colorchoice"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
+
+[[package]]
+name = "file"
+version = "1.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "072420e920a41e95a021116fb47c331d1199aab0f12ca1f77903d5c0ec65c37a"
 
 [[package]]
 name = "heck"

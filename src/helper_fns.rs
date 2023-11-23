@@ -6,7 +6,7 @@ pub enum Group
     Plus,
     Slash
 }
-
+/*
 pub fn print_vector(bytes: &[u8])
 {
     for i in 0..bytes.len()
@@ -27,3 +27,4 @@ pub fn print_2d_vector(bytes: Vec<Vec<u8>>)
         println!();
     }
 }
+*/
