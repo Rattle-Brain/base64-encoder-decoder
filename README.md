@@ -12,7 +12,7 @@ This program has been created as a way for me to practice Rust. It's not meant t
 Feel free to fork, improve and play with it.
 
 # USAGE
-### Encode
+### Encode String
 You can execute the program by running in your terminal
 ```
 cargo build --release
@@ -20,7 +20,7 @@ base64-encoder-decoder.exe -e "String to encode"
 ```
 This will encode the string "String to encode" and print the result to the standard output.
 
-### Decode
+### Decode String
 For this, you can run the following commands
 ```
 cargo build --release
@@ -28,6 +28,12 @@ base64-encoder-decoder.exe -d "U3RyaW5nIHRvIGVuY29kZQ=="
 ```
 This will decode the Base64 string to regular plain text.
 
+### Encode file.txt
+This will encode a ```file.txt``` where the name can be the full path. It has not been tested in other formats yet (.xml, .html, .bin, .docx, ...) but it should work regardless. The contents of the encodign will be dumped in a ```file-encoded.txt``` name. To use it, you can run the following command:
+```
+cargo build --release
+base64-encoder-decoder.exe -E file.txt
+```
 ### Other Commands
 ```
 base64-encoder-decoder.exe --help
