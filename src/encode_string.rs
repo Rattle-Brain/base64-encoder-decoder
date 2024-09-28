@@ -15,34 +15,36 @@ pub fn encode(text: String) -> String
     let mut reminder: u8;       // stores the bits not taken from the byte
     let mut mask: u8;           // Mask to extract the bits not taken during previous operations
 
-    for byte_group in bytes
-    {
+    for byte_group in bytes {
+        // Initialize variables for each byte group
+        let byte_group_len = byte_group.len(); // Store the length of byte_group
         reminder = 0;
         count = 2;
         current = 0;
-        for i in 0.. byte_group.len() + 1
-        {
-            if i >= byte_group.len()
-            {
-                mask = 0x3F;        // Take the 6 less significant bits (0b00111111)
-                current = byte_group[i-1] & mask;
-                result.push(current);
-                break;
+    
+        // Iterate over each byte in the byte group plus one extra iteration
+        for i in 0..=byte_group_len {
+            // Handle the case when i exceeds the length of byte_group
+            if i >= byte_group_len {
+                let mask = 0x3F; // Take the 6 less significant bits (0b00111111)
+                current = byte_group[i - 1] & mask;
+                result.push(current); // Push the current value to the result
+                break; // Exit the loop
             }
-
-            let byte = byte_group[i];
-            current |= byte >> count;
-            current += reminder;
-
-            mask = 2_u8.pow(count.into()) - 1;
-
-            reminder = byte & mask;                     // Extracts the not-taken bits
-            reminder = reminder << (limit - count) - 2; // 0b00xxxxxx
-
-            count = (count + 2) % limit;                // updates the count
-
-            result.push(current);
-            current = current ^ current;
+    
+            let byte = byte_group[i]; // Get the current byte
+            current |= byte >> count; // Shift the byte right by count and OR with current
+            current += reminder; // Add the reminder to current
+    
+            mask = (1 << count) - 1; // Calculate the mask based on count
+    
+            reminder = byte & mask; // Extract the not-taken bits using the mask
+            reminder <<= (limit - count) - 2; // Shift the reminder bits
+    
+            count = (count + 2) % limit; // Update the count and wrap around using limit
+    
+            result.push(current); // Push the current value to the result
+            current = 0; // Reset current to 0
         }
     }
 //    hf::print_vector(&text_as_bytes);

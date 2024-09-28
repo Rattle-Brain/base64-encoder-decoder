@@ -25,6 +25,7 @@ pub fn encode_file(filename: String, new_filename: String) -> std::io::Result<()
     }
 
     let new_file = File::create(encoded_filename);
-    let _var = new_file.unwrap().write_all(encoded.as_bytes()).expect("Something went wrong writing the file");
+    let _var = new_file.unwrap().write_all(encoded.as_bytes()).expect(
+        "Something went wrong writing the file");
     Ok(())
 }

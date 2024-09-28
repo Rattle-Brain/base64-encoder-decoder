@@ -25,29 +25,29 @@ pub fn decode(encoded: String) -> String
         current = 0;
         count = 2;
 
-        for i in 0..byte_group.len()
-        {
-            if i == byte_group.len() - 1
-            {
+        let byte_group_len = byte_group.len(); // Store the length of byte_group
+
+        for i in 0..byte_group_len {
+            if i == byte_group_len - 1 {
+                // Handle the last byte in the group
                 current = byte_group[i] << count;
-            }
-            else
-            {
-                let byte = byte_group[i];
-                let next_byte: u8 = byte_group[i+1];
-                current |= byte << count;
-
-                mask = 2_u8.pow(count.into()) - 1;
-                mask = mask << (limit - count) - 2;
-
-                reminder = next_byte & mask;                     // Extracts the not-taken bits
-                reminder = reminder >> (limit - count) - 2 ; // 0b00xxxxxx
-
-                current += reminder;
-                count = (count + 2) % limit;                // updates the count
-
-                result.push(current);
-                current = current ^ current;
+            } else {
+                let byte = byte_group[i]; // Get the current byte
+                let next_byte = byte_group[i + 1]; // Get the next byte
+        
+                current |= byte << count; // Shift the byte left by count and OR with current
+        
+                // Calculate the mask based on count and shift it
+                mask = (2_u8.pow(count.into()) - 1) << (limit - count - 2);
+        
+                // Extract and shift the not-taken bits using the mask
+                reminder = (next_byte & mask) >> (limit - count - 2);
+        
+                current += reminder; // Add the reminder to current
+                count = (count + 2) % limit; // Update the count and wrap around using limit
+        
+                result.push(current); // Push the current value to the result
+                current = 0; // Reset current to 0
             }
         }
     }
